@@ -31,8 +31,8 @@ class RomanNumeralGeneratorTest extends \PHPUnit_Framework_TestCase {
    *
    * @dataProvider providerTestGeneration
    */
-  public function testGeneration($number, $expected) {
-    $this->assertEquals($expected, $this->generator->generate($number));
+  public function testGeneration($number, $expected, $isLower) {
+    $this->assertEquals($expected, $this->generator->generate($number, $isLower));
   }
 
   /**
@@ -42,25 +42,31 @@ class RomanNumeralGeneratorTest extends \PHPUnit_Framework_TestCase {
    *   Test cases.
    */
   public function providerTestGeneration() {
-    return [
-      1 => [1, "I"],
-      2 => [2, "II"],
-      3 => [3, "III"],
-      4 => [4, "IV"],
-      5 => [5, "V"],
-      6 => [6, "VI"],
-      9 => [9, "IX"],
-      27 => [27, "XXVII"],
-      48 => [48, "XLVIII"],
-      59 => [59, "LIX"],
-      93 => [93, "XCIII"],
-      141 => [141, "CXLI"],
-      163 => [163, "CLXIII"],
-      402 => [402, "CDII"],
-      575 => [575, "DLXXV"],
-      911 => [911, "CMXI"],
-      1024 => [1024, "MXXIV"],
-      3000 => [3000, "MMM"],
+    // Starting with uppercase test cases. Using string keys for more verbose output in case of broken tests.
+    $testCases = [
+      "I"      => [1, "I", FALSE],
+      "II"     => [2, "II", FALSE],
+      "III"    => [3, "III", FALSE],
+      "IV"     => [4, "IV", FALSE],
+      "V"      => [5, "V", FALSE],
+      "VI"     => [6, "VI", FALSE],
+      "IX"     => [9, "IX", FALSE],
+      "XXVII"  => [27, "XXVII", FALSE],
+      "XLVIII" => [48, "XLVIII", FALSE],
+      "LIX"    => [59, "LIX", FALSE],
+      "XCIII"  => [93, "XCIII", FALSE],
+      "CXLI"   => [141, "CXLI", FALSE],
+      "CLXIII" => [163, "CLXIII", FALSE],
+      "CDII"   => [402, "CDII", FALSE],
+      "DLXXV"  => [575, "DLXXV", FALSE],
+      "CMXI"   => [911, "CMXI", FALSE],
+      "MXXIV"  => [1024, "MXXIV", FALSE],
+      "MMM"    => [3000, "MMM", FALSE],
     ];
+    // Now converting each uppercase test case to lowercase and taking them as test cases.
+    foreach ($testCases as $key => $value) {
+      $testCases[strtolower($key)] = [$value[0], strtolower($value[1]), TRUE]; 
+    }
+    return $testCases;
   }
 }
