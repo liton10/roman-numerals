@@ -42,7 +42,7 @@ class RomanNumeralGeneratorTest extends \PHPUnit_Framework_TestCase {
    *   Test cases.
    */
   public function providerTestGeneration() {
-    // Starting with uppercase test cases. Using string keys for more verbose output in case of broken tests
+    // Starting with uppercase test cases. Using string keys for more verbose output in case of broken tests.
     $testCases = [
       "I"      => [1, "I", FALSE],
       "II"     => [2, "II", FALSE],
